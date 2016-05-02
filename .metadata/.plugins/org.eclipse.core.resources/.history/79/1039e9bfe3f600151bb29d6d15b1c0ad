@@ -1,0 +1,146 @@
+package dmv;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Tester {
+
+	static Scanner scan = new Scanner(System.in);
+	static Staff s = new Staff();
+	static Database db = new Database();
+	//static Admin a = new Admin();
+	//static boolean admin = false;
+	//static boolean staff = false;
+	
+	public static void main(String[] args) throws IOException {
+
+		
+		
+		
+		s.addCredentials("staff STAFF");
+		//a.addCredentials("admin ADMIN");
+		
+		promptLogin();
+		int c = menu();
+		while((s.isStaff() && c != 3) && c != 8 )
+		{
+			if(c == 1)
+			{
+				search();
+			}
+			else if(c == 2)
+			{
+				addNote();
+			}
+			else if(c == 3)
+			{
+				addDriversLicense();
+			}
+			else if(c == 4)
+			{
+				
+			}
+			
+			c = menu();
+		}
+		
+
+	}
+	
+
+	public static void search()
+	{
+		for(int i = 0; i < 10; i++)
+		{
+			System.out.println(db.getBD().get(i));
+		}
+		db.sort();
+		for(int i = 0; i < 10; i++)
+		{
+			System.out.println(db.getBD().get(i));
+		}
+		
+		System.out.println("Enter first and last name of the person you're looking for:");
+		String name = scan.nextLine();
+		System.out.println("\n\n" + db.getDB().get(name));
+	}
+	
+	public static void addNote()
+	{
+		System.out.println("Add a note to?");
+		String name = scan.nextLine();
+		if(db.getDB().get(name) != null)
+		{
+			System.out.println("Enter in the note you would like to add: ");
+			String note = scan.nextLine();
+			db.getDB().get(name).getPerson().setNote(note);
+		}
+		else
+			System.out.println("Person not found. Try again.");
+		
+	}
+	
+	public static void addDriversLicense()
+	{
+		System.out.println("Enter in the following information: ");
+		System.out.println("Name [first and last]:");
+		String name = scan.nextLine();
+		System.out.println("Address:");
+		String address = scan.nextLine();
+		System.out.println("Date of birth [Mm/Dd/Yyyy]:");
+		System.out.println("Eye color:");
+		System.out.println("Hair color:");
+		System.out.println("Height:");
+		System.out.println("Weight:");
+		System.out.println("Restrictions:");
+		System.out.println("Drivers License #:");
+		System.out.println("Type of Drivers License:");
+		System.out.println("Points on Drivers License:");
+		System.out.println("Year it was issued:");
+		System.out.println("Year it expires:");
+		
+	}
+	
+	//find what to implement if staff credentials r in
+	public static void promptLogin()
+	{
+		String user = "", pwd = "";
+		
+		
+		while(!user.equals("admin") && !pwd.equals("ADMIN") && s.check(user, pwd) != 1)
+		{
+			System.out.println("Username: ");
+			user = scan.nextLine();
+			System.out.println("Password:");
+			pwd = scan.nextLine();
+			if(user.equals("admin") && pwd.equals("ADMIN"))
+			{
+				s = new Admin();
+				
+			}
+			else if(s.check(user, pwd) == 1)
+			{
+				
+			}
+			else
+				System.out.println("Wrong username or password. Try again.");
+		}
+		
+	}
+	
+	public static int menu()
+	{
+		System.out.println(s.getMenu());
+		int c = Integer.parseInt(scan.nextLine());
+		return c;
+	}
+	
+	
+	
+
+}

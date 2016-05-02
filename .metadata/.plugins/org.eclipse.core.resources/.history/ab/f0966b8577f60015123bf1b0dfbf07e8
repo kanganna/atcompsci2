@@ -1,0 +1,24 @@
+package dmv;
+
+public class Admin extends Staff{
+	
+	public Admin()
+	{
+		super();
+		addCredentials("admin ADMIN");
+	}
+	
+	public String getMenu()
+	{
+		return "1) Search Drivers License"
+				+ "\n2) Add Note"
+				+ "\n3) Add Drivers License"
+				+ "\n4) Edit Drivers License"
+				+ "\n5) Print List of People"
+				+ "\n6) Suspend a Drivers License"
+				+ "\n7) Revoke a Drivers License"
+				+ "\n8) Quit";
+				
+	}
+
+}

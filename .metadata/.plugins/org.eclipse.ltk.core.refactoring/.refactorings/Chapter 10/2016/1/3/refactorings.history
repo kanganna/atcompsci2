@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 3 elements to &apos;BST/src/project&apos;&#x0D;&#x0A;- Original project: &apos;Chapter 10&apos;&#x0D;&#x0A;- Destination element: &apos;BST/src/project&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     traversals.BSTNode.java&#x0D;&#x0A;     traversals.BSTree.java&#x0D;&#x0A;     traversals.TreeNode.java" description="Copy compilation units" destination="=BST/src&lt;project" element1="/src&lt;traversals{BSTNode.java" element2="/src&lt;traversals{BSTree.java" element3="/src&lt;traversals{TreeNode.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1452478476320" units="3" version="1.0"/>
+</session>

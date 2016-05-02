@@ -1,0 +1,99 @@
+package dmv;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Tester {
+
+	static Scanner scan = new Scanner(System.in);
+	static Staff s = new Staff();
+	static Database db = new Database();
+	//static Admin a = new Admin();
+	//static boolean admin = false;
+	//static boolean staff = false;
+	
+	public static void main(String[] args) throws IOException {
+
+
+		
+		
+		s.addCredentials("staff STAFF");
+		//a.addCredentials("admin ADMIN");
+		
+		promptLogin();
+		int c = menu();
+		while(c != 8 && (c != 3 && s.isStaff()) )
+		{
+			if(c == 1)
+			{
+				search();
+			}
+			else if(c == 2)
+			{
+				
+			}
+			else if(c == 3)
+			{
+				
+			}
+			else if(c == 4)
+			{
+				
+			}
+			
+			c = menu();
+		}
+		
+
+	}
+	
+	public static void search()
+	{
+		System.out.println("Enter first and last name of the person you're looking for:");
+		String name = scan.nextLine();
+		System.out.println("\n\n" + db.getDB().get(name));
+	}
+	
+	//find what to implement if staff credentials r in
+	public static void promptLogin()
+	{
+		String user = "", pwd = "";
+		
+		
+		while(!user.equals("admin") && !pwd.equals("ADMIN") && s.check(user, pwd) != 1)
+		{
+			System.out.println("Username: ");
+			user = scan.nextLine();
+			System.out.println("Password:");
+			pwd = scan.nextLine();
+			if(user.equals("admin") && pwd.equals("ADMIN"))
+			{
+				s = new Admin();
+				
+			}
+			else if(s.check(user, pwd) == 1)
+			{
+				
+			}
+			else
+				System.out.println("Wrong username or password. Try again.");
+		}
+		
+	}
+	
+	public static int menu()
+	{
+		System.out.println(s.getMenu());
+		int c = Integer.parseInt(scan.nextLine());
+		return c;
+	}
+	
+	
+	
+
+}

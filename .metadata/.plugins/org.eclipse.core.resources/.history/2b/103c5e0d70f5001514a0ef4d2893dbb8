@@ -1,0 +1,91 @@
+package dmv;
+//not done
+public class License 
+{
+	//whenTO is years until one turns 21
+	private String number, type, expiration, issued, status;
+	private int points, whenTO;
+	private Person p;
+	
+	public License(Person p, String number, String type, String expiration,
+			String issued, String status, int points) 
+	{
+		this.p = p;
+		this.number = number;
+		this.type = type;
+		this.expiration = expiration;
+		this.issued = issued;
+		this.status = status;
+		this.points = points;
+		
+		whenTO = 21 - (2016 - Integer.valueOf(p.getDob().substring(p.getDob().length()-4, p.getDob().length())));
+		
+	}
+	
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(String expiration) {
+		this.expiration = expiration;
+	}
+
+	public int getWhenTO() {
+		return whenTO;
+	}
+
+	public void setWhenTO(int whenTO) {
+		this.whenTO = whenTO;
+	}
+
+	public String getStatus() {
+		if(points >= 8)
+			status = "Revoked";
+		if(points >= 4)
+			status = "Suspended";
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	public Person getPerson() {
+		return p;
+	}
+
+	public void setPerson(Person p) {
+		this.p = p;
+	}
+	
+	public String toString()
+	{
+		return p + "\nNumber = " + number + " Type = " + type + " Status = " + status + " Points = " + points
+				+ "\nYears Till 21 = " + whenTO + " Issued = " + issued + " Expiration = " + expiration;
+	}
+	
+}

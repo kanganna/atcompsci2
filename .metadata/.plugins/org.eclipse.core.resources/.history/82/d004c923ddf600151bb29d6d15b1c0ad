@@ -1,0 +1,117 @@
+package dmv;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
+import java.util.TreeMap;
+
+public class Database {
+	
+	private HashMap<String, License> db;
+	
+	public Database()
+	{
+		db = new HashMap<String, License>();
+		try {
+			setup();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void setup() throws NumberFormatException, IOException
+	{
+		for(int i = 0; i < 44; i++)
+		{
+			System.out.println(Math.random()*10000+1000);
+		}
+		
+		
+		String csvFile = "files/tester.csv";
+		File file = new File(csvFile);
+        System.out.println(file.exists());
+		BufferedReader br = new BufferedReader(new FileReader(csvFile));
+		
+		String line = "";
+		Person x = null;
+		License z = null;
+		while ((line = br.readLine()) != null) 
+		{
+			String[] info = line.split(",");
+			/*for(int i = 0; i < info.length; i++)
+				System.out.println(info[i]);*/
+			String address = info[1].replace("-", ", ");
+			x = new Person(info[0], address, info[2], info[3], info[4], info[5], info[6], info[7], new ArrayList<String>(Arrays.asList(info[8].split("-"))));
+			z = new License(x, info[9], info[10], info[11], info[12], Integer.parseInt(info[13]));
+			db.put(info[0], z);
+
+		}
+		br.close();
+	}
+	
+	public HashMap<String, License> getDB()
+	{
+		return db;
+	}
+	
+	public String toString()
+	{
+		Iterator iterator = db.keySet().iterator();
+		String s = "";
+		
+		while (iterator.hasNext()) 
+		{
+		   String key = iterator.next().toString();
+		   String value = db.get(key).toString();
+		   s += value + "\n\n";
+		   
+		}
+		
+		return s;
+	}
+	
+	
+	public void sort()
+	{
+		
+		/*Map x = new TreeMap<String, License>(db);
+		db.putAll(x);
+		Map<String, License> temp = new TreeMap<String, License>(db);
+		db = null;
+		db = new HashMap<String, License>();
+		
+		Iterator iiterator = temp.keySet().iterator();
+		
+		
+		while(iiterator.hasNext()){
+			String key = (String) iiterator.next();
+			db.put(key, temp.get(key));
+		}
+		
+		Iterator iterator = db.keySet().iterator();
+		String s = "";
+		
+		while (iterator.hasNext()) 
+		{
+		   String key = iterator.next().toString();
+		   String value = db.get(key).toString();
+		   s += value + "\n\n";
+		   
+		}
+		
+		return s;*/
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;dmv.Liscence&apos; to &apos;License&apos;&#x0D;&#x0A;- Original project: &apos;DMV&apos;&#x0D;&#x0A;- Original element: &apos;dmv.Liscence&apos;&#x0D;&#x0A;- Renamed element: &apos;dmv.License&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Liscence&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;dmv{Liscence.java[Liscence" matchStrategy="1" name="License" qualified="false" references="true" similarDeclarations="false" stamp="1458660920708" textual="false" version="1.0"/>
+</session>

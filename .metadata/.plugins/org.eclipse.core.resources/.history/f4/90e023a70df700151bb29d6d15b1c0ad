@@ -1,0 +1,144 @@
+package dmv;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+
+public class Database {
+	
+	private LinkedList<License> db, badStatus;
+	
+	public Database()
+	{
+		db = new LinkedList<License>();
+		badStatus = new LinkedList<License>();
+		try {
+			setup();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void setup() throws NumberFormatException, IOException
+	{		
+		String csvFile = "files/information.csv";
+		File file = new File(csvFile);
+		BufferedReader br = new BufferedReader(new FileReader(csvFile));
+		
+		String line = "";
+		Person x = null;
+		License z = null;
+		while ((line = br.readLine()) != null) 
+		{
+			String[] info = line.split(",");
+			String address = info[1].replace("-", ", ");
+			x = new Person(info[0], address, info[2], info[3], info[4], info[5], info[6].replace("\"", "")+ "\"", info[7], new ArrayList<String>(Arrays.asList(info[8].split("-"))));
+			z = new License(x, info[9], info[10], info[11], info[12], Integer.parseInt(info[13]));
+			db.add(z);
+			
+			if(!z.getStatus().equals("Good"))
+			{
+				badStatus.add(z);
+			}
+		}
+		br.close();
+		
+		sort(db);
+	}
+	
+	public License get(String name)
+	{
+		for(License x : db)
+		{
+			if(x.getPerson().getName().equalsIgnoreCase(name))
+				return x;
+		}
+		
+		return null;
+	}
+	
+	public void add(License x)
+	{
+		db.add(x);
+		sort(db);
+	}
+	
+	public void suspend(String name)
+	{
+		get(name).setStatus("Suspended");
+		badStatus.add(get(name));
+		sort(badStatus);
+	}
+	
+	public void revoke(String name)
+	{
+		License x = get(name);
+		x.setStatus("Revoked");
+		badStatus.add(x);
+		sort(badStatus);
+	}
+	
+	public LinkedList<License> getDB()
+	{
+		return db;
+	}
+	
+	public LinkedList<License> getBS()
+	{
+		return badStatus;
+	}
+	
+	public String printBS() throws IOException
+	{
+		sort(badStatus);
+		FileWriter file = new FileWriter("files/badstatus.csv");
+		PrintWriter pw = new PrintWriter(file);
+		
+		String s = "";
+		for(License x : badStatus)
+		{
+			pw.println(x);
+			s += x.getPerson().getName() + "\tStatus: " + x.getStatus() + "\n\n";
+		}
+		pw.close();
+		return s;
+	}
+	
+	public String toString()
+	{
+		String s = "";
+		for(License x : db)
+		{
+			s += x + "\n\n";
+		}
+		return s;
+	}
+	
+	
+	private void sort(LinkedList<License> z)
+	{
+		Collections.sort(z, new Comparator<License>(){
+
+			public int compare(License arg0, License arg1) {
+				
+				String[] o = arg0.getPerson().getName().split(" ");
+				String[] t = arg1.getPerson().getName().split(" ");
+				
+				return o[1].compareTo(t[1]);
+			}});
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,280 @@
+package dmv;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Tester {
+
+	static Scanner scan = new Scanner(System.in);
+	static Staff s = new Staff();
+	static Database db = new Database();
+	//static Admin a = new Admin();
+	//static boolean admin = false;
+	//static boolean staff = false;
+	
+	public static void main(String[] args) throws IOException {
+
+		
+		
+		
+		s.addCredentials("staff STAFF");
+		//a.addCredentials("admin ADMIN");
+		
+		promptLogin();
+		int c = menu();
+		//while s is staff and c is not staff quit OR s is admin and c is not admin quit
+		while((s.isStaff() && c != 3) || (!s.isStaff() && c != 8))
+		{
+			if(c == 1)
+			{
+				search();
+			}
+			else if(c == 2)
+			{
+				addNote();
+			}
+			else if(c == 3)
+			{
+				addDriversLicense();
+			}
+			else if(c == 4)
+			{
+				editDriversLicense();
+			}
+			else if(c == 5)
+			{
+				printList();
+			}
+			else if(c == 6)
+			{
+				
+			}
+			else if(c == 7)
+			{
+				
+			}
+			
+			c = menu();
+		}
+		
+
+	}
+	
+
+	public static void search()
+	{	
+		System.out.println("Enter first and last name of the person you're looking for:");
+		String name = scan.nextLine();
+		License l = db.get(name);
+		if(l != null)
+			System.out.println("\n\n" + l);
+		else
+			System.out.println("The person wasn't found. Try again.");
+	}
+	
+	public static void addNote()
+	{
+		System.out.println("Add a note to?");
+		String name = scan.nextLine();
+		if(db.get(name) != null)
+		{
+			System.out.println("Enter in the note you would like to add: ");
+			String note = scan.nextLine();
+			db.get(name).getPerson().setNote(note);
+		}
+		else
+			System.out.println("Person not found. Try again.");
+		
+	}
+	
+	public static void addDriversLicense()
+	{
+		System.out.println("Enter in the following information: ");
+		System.out.println("Name [first and last]:");
+		String name = scan.nextLine();
+		System.out.println("Address:");
+		String address = scan.nextLine();
+		System.out.println("Date of birth [Mm/Dd/Yyyy]:");	
+		String date = scan.nextLine();
+		System.out.println("Gender");
+		String gender = scan.nextLine();
+		System.out.println("Eye color:");
+		String eye = scan.nextLine();
+		System.out.println("Hair color:");
+		String hair = scan.nextLine();
+		System.out.println("Height:");
+		String height = scan.nextLine();
+		System.out.println("Weight:");
+		String weight = scan.nextLine();
+		System.out.println("Restrictions (separate each restriction with a comma:");
+		
+		String[] temp = scan.nextLine().split(",");
+		ArrayList<String> r = new ArrayList<String>(Arrays.asList(temp));
+		
+		System.out.println("Drivers License #:");
+		String num = scan.nextLine();
+		System.out.println("Type of Drivers License:");
+		String type = scan.nextLine();
+		System.out.println("Points on Drivers License:");
+		int points = Integer.parseInt(scan.nextLine());
+		System.out.println("Year it was issued:");
+		String is = scan.nextLine();
+		System.out.println("Year it expires:");
+		String ex = scan.nextLine();
+		
+		Person p = new Person(name, address, date, gender, hair, eye, height, weight, r);
+		db.add(new License(p, num, type, ex, is, points));
+		
+		System.out.println("\nPerson added.");
+	}
+	
+	public static void editDriversLicense()
+	{
+		System.out.println("Whose drivers license would you like to edit?");
+		String name = scan.nextLine();
+		if(db.get(name) != null)
+		{
+			System.out.println("\n\n" + db.get(name) + "\n");
+			System.out.println("What part would you like to edit?");
+			System.out.println("Name, address, dob, gender, hair color, eye color, height, weight, restrictions");
+			System.out.println("number, type, expiration date, issuing date, points, status\n");
+			
+			String option = scan.nextLine();
+
+			if(option.equalsIgnoreCase("name"))
+			{
+				System.out.println("Change the name to?");
+				db.get(name).getPerson().setName(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("address"))
+			{
+				System.out.println("Change the address to?");
+				db.get(name).getPerson().setAddress(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("dob"))
+			{
+				System.out.println("Change the date of birth to? (Mm/Dd/Yyyy)");
+				db.get(name).getPerson().setDob(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("gender"))
+			{
+				System.out.println("Change the gender to?");
+				db.get(name).getPerson().setGender(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("hair color"))
+			{
+				System.out.println("Change the hair color to?");
+				db.get(name).getPerson().setHair(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("eye color"))
+			{
+				System.out.println("Change the eye color to?");
+				db.get(name).getPerson().setEye(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("height"))
+			{
+				System.out.println("Change the height to?");
+				db.get(name).getPerson().setHeight(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("weight"))
+			{
+				System.out.println("Change the weight to?");
+				db.get(name).getPerson().setWeight(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("restrictions"))
+			{
+				System.out.println("Change the restrictions to? (separate multiple restrictions with ',')");
+				String[] r = scan.nextLine().split(",");
+				db.get(name).getPerson().setRestrictions(new ArrayList<String>(Arrays.asList(r)));
+			}
+			else if(option.equalsIgnoreCase("number"))
+			{
+				System.out.println("Change the license number to?");
+				db.get(name).setNumber(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("type"))
+			{
+				System.out.println("Change the license type to?");
+				db.get(name).setType(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("expiration date"))
+			{
+				System.out.println("Change the license's expiration date to?");
+				db.get(name).setExpiration(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("issuing date"))
+			{
+				System.out.println("Change the license's issuing date to?");
+				db.get(name).setIssued(scan.nextLine());
+			}
+			else if(option.equalsIgnoreCase("points"))
+			{
+				System.out.println("Change the license's points to?");
+				db.get(name).setPoints(Integer.parseInt(scan.nextLine()));
+			}
+			else if(option.equalsIgnoreCase("status"))
+			{
+				System.out.println("Change the license status to?");
+				db.get(name).setStatus(scan.nextLine());
+			}
+			System.out.println("\nEditing done.");
+		}
+		else
+			System.out.println("Person was not found. Try again.");
+	}
+	
+	
+	public static void printList()
+	{
+		System.out.println();
+		for(License x : db.getDB())
+		{
+			System.out.println(x.getPerson().getName());
+		}
+	}
+	
+	//find what to implement if staff credentials r in
+	public static void promptLogin()
+	{
+		String user = "", pwd = "";
+		
+		
+		while(!(user.equals("admin") && pwd.equals("ADMIN")) && s.check(user, pwd) != 1)
+		{
+			System.out.println("Username: ");
+			user = scan.nextLine();
+			System.out.println("Password:");
+			pwd = scan.nextLine();
+			if(user.equals("admin") && pwd.equals("ADMIN"))
+			{
+				s = new Admin();
+				
+			}
+			else if(s.check(user, pwd) == 1)
+			{
+				
+			}
+			else
+				System.out.println("Wrong username or password. Try again.");
+		}
+		
+	}
+	
+	
+	public static int menu()
+	{
+		System.out.println(s.getMenu());
+		int c = Integer.parseInt(scan.nextLine());
+		return c;
+	}
+	
+	
+	
+	
+
+}

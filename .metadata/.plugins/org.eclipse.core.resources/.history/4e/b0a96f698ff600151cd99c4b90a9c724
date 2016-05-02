@@ -1,0 +1,14 @@
+package dmv;
+
+import java.util.HashMap;
+
+public class Database {
+	
+	private HashMap<String, License> db;
+	
+	public Database()
+	{
+		
+	}
+
+}
