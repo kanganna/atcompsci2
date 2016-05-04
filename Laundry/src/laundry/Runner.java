@@ -1,14 +1,18 @@
 package laundry;
 import java.util.Scanner;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Runner {
 
 	static Scanner k = new Scanner(System.in);
+	static Calendar c = new GregorianCalendar().getInstance();
+	
 	public static void main(String[] args) {
 
 		Schedule s = new Schedule();
 		Student current = null;
-		
+		System.out.println("The time is: " + c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE;
 		while(menu() != 2)
 		{
 			System.out.println("Username:");
