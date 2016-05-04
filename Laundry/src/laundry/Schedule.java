@@ -1,6 +1,8 @@
 package laundry;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -8,9 +10,12 @@ public class Schedule {
 
 	private Queue<Student> mon, tues, wed, thurs, fri, sat, sun;
 	private ArrayList<Student> list;
+	private Calendar c;
 	
 	public Schedule()
 	{
+		c = new GregorianCalendar().getInstance();
+		
 		mon = new LinkedList<Student>();
 		tues = new LinkedList<Student>();
 		wed = new LinkedList<Student>();
@@ -137,6 +142,11 @@ public class Schedule {
 	public void remove(String day, int hour)
 	{
 		((LinkedList<?>)getQueue(day)).set(hour, null);
+	}
+	
+	public String getTime()
+	{
+		
 	}
 	
 }
