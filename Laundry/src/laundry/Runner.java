@@ -5,11 +5,10 @@ public class Runner {
 
 	static Scanner k = new Scanner(System.in);
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		Schedule s = new Schedule();
 		Student current = null;
 		
-		//int c = menu();
 		while(menu() != 2)
 		{
 			System.out.println("Username:");
@@ -30,7 +29,16 @@ public class Runner {
 						String day = k.nextLine();
 						System.out.println("\nAvaliable Hours: " + s.getAvaliableSpots(day));
 						System.out.println("Enter in an hour:");
-						int hour = Integer.parseInt(k.nextLine());
+						int hour = 0;
+						String h = k.nextLine();
+						try
+						{
+							hour = Integer.parseInt(h);
+						}
+						catch(NumberFormatException e)
+						{
+							hour = Integer.parseInt(h.split(":")[0]);
+						}
 						s.addAppointment(day, hour, current);
 					}
 					
@@ -38,6 +46,14 @@ public class Runner {
 					{
 						System.out.println("Which reservation would you like to cancel?");
 						System.out.println(s.getStudentReservations(current));
+						String r = k.nextLine();
+						int hour = 0;
+						if(!r.split(":")[0].equals("0") && r.split(":")[0].split(" ").length == 1)
+							hour = Integer.parseInt(r.split(":")[0]);
+						
+						String day = r.split(" ")[1];
+						s.remove(day, hour);
+						System.out.println("Reservation has been removed.\n");
 					}
 					
 					c = menu2();

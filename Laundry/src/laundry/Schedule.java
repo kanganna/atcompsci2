@@ -32,62 +32,30 @@ public class Schedule {
 		
 		list = new ArrayList<Student>();
 		list.add(new Student("A", "C"));
+		list.add(new Student("V", "G"));
+		list.add(new Student("A", "A"));
 	}
 	
 	public void addAppointment(String day, int hour, Student x)
 	{
-		((LinkedList)getQueue(day)).set(hour, x);
-		/*switch(day)
+		if(!((LinkedList<?>)getQueue(day)).contains(x))
 		{
-		case "fri":
-			((LinkedList)fri).set(hour, x);
-			break;
-		case "Tues":
-			((LinkedList)tues).set(hour, x);
-			break;
-		case "Wed":
-			((LinkedList)wed).set(hour, x);
-			break;
-		case "Thurs":
-			((LinkedList)thurs).set(hour, x);
-			break;
-		case "Fri":
-			((LinkedList)fri).set(hour, x);
-			break;
-		case "Sat":
-			((LinkedList)sat).set(hour, x);
-			break;
-		case "Sun":
-			((LinkedList)sun).set(hour, x);
-			break;
-		}*/
+			((LinkedList<Student>)getQueue(day)).set(hour, x);
+			System.out.println("Reservation made.\n");
+		}
+		else
+			System.out.println("Only one appointment per day is allowed.\n");	
 	}
 	
 	public boolean check(String first, String last)
 	{
 		Student x = new Student(first, last);
-		return list.contains(new Student("A", "C"));
+		return list.contains(x);
 	}
 	
 	public String printQueue(String day)
 	{
 		return printQueue(getQueue(day));
-		
-		/*if(day.equals("fri"))
-			return printQueue(fri);
-		if(day.equals("Tues"))
-			return printQueue(tues);
-		if(day.equals("Wed"))
-			return printQueue(wed);
-		if(day.equals("Thurs"))
-			return printQueue(thurs);
-		if(day.equals("Fri"))
-			return printQueue(fri);
-		if(day.equals("Sat"))
-			return printQueue(sat);
-		if(day.equals("Sun"))
-			return printQueue(sun);
-		return null;*/
 	}
 	
 	private String printQueue(Queue<Student> q)
@@ -126,7 +94,7 @@ public class Schedule {
 		Queue<Student> x = getQueue(day);
 		for(int i = 0; i < x.size(); i++)
 		{
-			if(((LinkedList)x).get(i) == null)
+			if(((LinkedList<Student>)x).get(i) == null)
 				t += i + ":00, ";
 		}
 		return t;
@@ -135,40 +103,40 @@ public class Schedule {
 	public String getStudentReservations(Student x)
 	{
 		String t = "";
-		if(((LinkedList)mon).indexOf(x) != -1)
+		if(((LinkedList<Student>)mon).indexOf(x) != -1)
 		{
-			t += ((LinkedList)mon).indexOf(x) + ":00 Mon, ";
+			t += ((LinkedList<Student>)mon).indexOf(x) + ":00 Mon, ";
 		}
-		if(((LinkedList)tues).indexOf(x) != -1)
+		if(((LinkedList<Student>)tues).indexOf(x) != -1)
 		{
-			t += ((LinkedList)tues).indexOf(x) + ":00 Tues, ";
+			t += ((LinkedList<Student>)tues).indexOf(x) + ":00 Tues, ";
 		}
-		if(((LinkedList)wed).indexOf(x) != -1)
+		if(((LinkedList<Student>)wed).indexOf(x) != -1)
 		{
-			t += ((LinkedList)wed).indexOf(x) + ":00 Wed, ";
+			t += ((LinkedList<Student>)wed).indexOf(x) + ":00 Wed, ";
 		}
-		if(((LinkedList)thurs).indexOf(x) != -1)
+		if(((LinkedList<Student>)thurs).indexOf(x) != -1)
 		{
-			t += ((LinkedList)thurs).indexOf(x) + ":00 Thurs, ";
+			t += ((LinkedList<Student>)thurs).indexOf(x) + ":00 Thurs, ";
 		}
-		if(((LinkedList)fri).indexOf(x) != -1)
+		if(((LinkedList<Student>)fri).indexOf(x) != -1)
 		{
-			t += ((LinkedList)fri).indexOf(x) + ":00 Fri, ";
+			t += ((LinkedList<Student>)fri).indexOf(x) + ":00 Fri, ";
 		}
-		if(((LinkedList)sat).indexOf(x) != -1)
+		if(((LinkedList<Student>)sat).indexOf(x) != -1)
 		{
-			t += ((LinkedList)sat).indexOf(x) + ":00 Sat, ";
+			t += ((LinkedList<Student>)sat).indexOf(x) + ":00 Sat, ";
 		}
-		if(((LinkedList)sun).indexOf(x) != -1)
+		if(((LinkedList<Student>)sun).indexOf(x) != -1)
 		{
-			t += ((LinkedList)sun).indexOf(x) + ":00 Sun, ";
+			t += ((LinkedList<Student>)sun).indexOf(x) + ":00 Sun, ";
 		}
 		return t;
 	}
 	
 	public void remove(String day, int hour)
 	{
-		((LinkedList)getQueue(day)).set(hour, null);
+		((LinkedList<?>)getQueue(day)).set(hour, null);
 	}
 	
 }
