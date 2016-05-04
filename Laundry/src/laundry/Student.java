@@ -14,4 +14,13 @@ public class Student {
 	{
 		return last + ", " + first;
 	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(obj == null)
+			return false;
+		
+		return this.getName().equals(((Student)obj).getName());
+	}
 }
