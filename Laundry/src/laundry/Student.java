@@ -9,4 +9,9 @@ public class Student {
 		first = f;
 		last = l;
 	}
+	
+	public String getName()
+	{
+		return last + ", " + first;
+	}
 }
