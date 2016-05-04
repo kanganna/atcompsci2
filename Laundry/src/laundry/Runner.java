@@ -1,7 +1,8 @@
 package laundry;
-import java.util.Scanner;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Scanner;
+import java.util.Timer;
 
 public class Runner {
 
@@ -12,7 +13,9 @@ public class Runner {
 
 		Schedule s = new Schedule();
 		Student current = null;
-		System.out.println("The time is: " + c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE;
+		System.out.println("The time is: " + c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE));
+		Timer t = new Timer();
+		
 		while(menu() != 2)
 		{
 			System.out.println("Username:");
@@ -44,6 +47,7 @@ public class Runner {
 							hour = Integer.parseInt(h.split(":")[0]);
 						}
 						s.addAppointment(day, hour, current);
+					
 					}
 					
 					if(c == 2)

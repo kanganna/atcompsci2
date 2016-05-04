@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Timer;
 
 public class Schedule {
 
@@ -49,7 +50,9 @@ public class Schedule {
 			System.out.println("Reservation made.\n");
 		}
 		else
-			System.out.println("Only one appointment per day is allowed.\n");	
+			System.out.println("Only one appointment per day is allowed.\n");
+		Timer t = new Timer();
+		t.schedule(new Event(x, this), 5000);
 	}
 	
 	public boolean check(String first, String last)
@@ -144,9 +147,6 @@ public class Schedule {
 		((LinkedList<?>)getQueue(day)).set(hour, null);
 	}
 	
-	public String getTime()
-	{
-		
-	}
+	
 	
 }
